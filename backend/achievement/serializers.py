@@ -12,3 +12,16 @@ class FacultySerializer(serializers.ModelSerializer):
             "slug",
             "get_absolute_url"
         )
+
+
+class SpecialitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Speciality
+        fields = (
+            "id",
+            "faculty",
+            "name",
+            "code",
+            "slug",
+            "get_absolute_url"
+        )
