@@ -7,6 +7,7 @@ from achievement.services.year_choices import year_choices
 class Faculty(models.Model):
     """"""
     name = models.CharField(max_length=255)
+    slug = models.SlugField()
 
     class Meta:
         ordering = ('name',)
@@ -22,6 +23,7 @@ class Speciality(models.Model):
 
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=20)
+    slug = models.SlugField()
 
     class Meta:
         ordering = ('name',)
@@ -37,6 +39,7 @@ class YearOfAdmission(models.Model):
     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE)
 
     year = models.IntegerField(choices=year_choices(), default=current_year())
+    slug = models.SlugField()
 
     class Meta:
         ordering = ('year',)
@@ -60,7 +63,7 @@ class Student(models.Model):
 
     class Meta:
         db_table = "student"
-        ordering = ('id', )
+        ordering = ('id',)
 
     def __str__(self):
         return f"{self.id} {self.name}"
@@ -74,6 +77,7 @@ class Achievement(models.Model):
     date = models.DateField()
     url = models.URLField(max_length=255)
     date_added = models.DateTimeField(auto_now=True)
+
     # image = models.ImageField()
     # grade = models.DecimalField()
 

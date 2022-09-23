@@ -6,11 +6,13 @@ from .models import Faculty, Speciality, YearOfAdmission, Student, Achievement
 @admin.register(Faculty)
 class FacultyAdmin(admin.ModelAdmin):
     list_display = ('name',)
+    prepopulated_fields = dict(slug=("name",))
 
 
 @admin.register(Speciality)
 class SpecialityAdmin(admin.ModelAdmin):
     list_display = ('faculty', 'name', 'code')
+    prepopulated_fields = dict(slug=("code",))
 
 
 @admin.register(YearOfAdmission)
