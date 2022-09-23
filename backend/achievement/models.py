@@ -5,7 +5,13 @@ from achievement.services.year_choices import year_choices
 
 
 class Faculty(models.Model):
-    """"""
+    """
+    Класс, описывающий таблицу faculty в БД.
+
+    Атрибуты:
+        name: Название факультета
+        slug: slug факультета
+    """
     name = models.CharField(max_length=255)
     slug = models.SlugField()
 
@@ -18,7 +24,16 @@ class Faculty(models.Model):
 
 
 class Speciality(models.Model):
-    """"""
+    """
+    Класс, описывающий таблицу speciality в БД.
+
+    Атрибуты:
+        faculty: Foreign key (Faculty)
+
+        name: Название специальности
+        code: Код специальности
+        slug: slug специальности
+    """
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
 
     name = models.CharField(max_length=255)
@@ -34,7 +49,16 @@ class Speciality(models.Model):
 
 
 class YearOfAdmission(models.Model):
-    """"""
+    """
+    Класс, описывающий таблицу year_of_admission в БД.
+
+    Атрибуты:
+        faculty: Foreign key (Faculty)
+        speciality: Foreign key (Speciality)
+
+        year: Дата поступления
+        slug: slug даты поступления
+    """
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE)
 
@@ -50,6 +74,21 @@ class YearOfAdmission(models.Model):
 
 
 class Student(models.Model):
+    """
+    Класс, описывающий таблицу student в БД.
+
+    Атрибуты:
+        faculty: Foreign key (Faculty)
+        speciality: Foreign key (Speciality)
+        year_of_admission: Foreign key (YearOfAdmission)
+
+        surname: Фамилия
+        name: Имя
+        patronymic: Отчество
+        date_of_birth: Дата рождения
+        phone_number: Номер телефона
+        email: Адрес электронной почты
+    """
     faculty = models.ForeignKey(Faculty, on_delete=models.CASCADE)
     speciality = models.ForeignKey(Speciality, on_delete=models.CASCADE)
     year_of_admission = models.ForeignKey(YearOfAdmission, on_delete=models.CASCADE)
@@ -70,6 +109,19 @@ class Student(models.Model):
 
 
 class Achievement(models.Model):
+    """
+    Класс, описывающий таблицу achievement в БД.
+
+    Атрибуты:
+        student: Foreign key (Student)
+
+        title: Заголовок достижения
+        description: Описание достижения
+        date: Дата произошедшего события
+        url: Ссылка
+        date_added: Дата добавления записи
+
+    """
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=255)
