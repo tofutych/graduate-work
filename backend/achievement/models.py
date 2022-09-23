@@ -22,6 +22,9 @@ class Faculty(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return f"/{self.slug}/"
+
 
 class Speciality(models.Model):
     """
@@ -47,6 +50,9 @@ class Speciality(models.Model):
     def __str__(self):
         return self.code
 
+    def get_absolute_url(self):
+        return f"{self.faculty.get_absolute_url()}{self.slug}/"
+
 
 class YearOfAdmission(models.Model):
     """
@@ -71,6 +77,9 @@ class YearOfAdmission(models.Model):
 
     def __str__(self):
         return str(self.year)
+
+    def get_absolute_url(self):
+        return f"{self.speciality.get_absolute_url()}/{self.slug}/"
 
 
 class Student(models.Model):
@@ -107,6 +116,9 @@ class Student(models.Model):
     def __str__(self):
         return f"{self.id} {self.name}"
 
+    def get_absolute_url(self):
+        return f"{self.year_of_admission.get_absolute_url()}/{self.id}/"
+
 
 class Achievement(models.Model):
     """
@@ -139,3 +151,6 @@ class Achievement(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return f"{self.student.get_absolute_url()}/achievement/{self.id}/"

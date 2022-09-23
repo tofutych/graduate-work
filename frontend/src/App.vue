@@ -3,9 +3,7 @@
     <nav class="navbar is-success is-large">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item"><strong>KubSU</strong></router-link>
-
         <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu" >
-
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -15,6 +13,7 @@
           <a class="navbar-link" href="#">
             Факультеты
           </a>
+
           <div class="navbar-dropdown is-hidden-mobile is-boxed">
             <router-link to="/bf" class="navbar-item">Биологический факультет</router-link>
 
@@ -57,7 +56,6 @@
       <router-view/>
     </section>
 
-
     <footer class="footer">
       <div class="container">
         <div class="content has-text-centered">
@@ -75,17 +73,6 @@
     </footer>
   </div>
 </template>
-
-
-<script>
-export default {
-  data() {
-    return {
-      showMobileMenu: false
-      }
-    }
-}
-</script>
 
 
 <style lang="scss">
