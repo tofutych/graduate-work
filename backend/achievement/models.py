@@ -44,7 +44,7 @@ class Speciality(models.Model):
     slug = models.SlugField()
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('faculty',)
         db_table = "speciality"
 
     def __str__(self):

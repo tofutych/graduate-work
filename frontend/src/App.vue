@@ -1,6 +1,6 @@
 <template>
   <div id="wrapper">
-    <nav class="navbar is-success is-large">
+    <nav class="navbar is-info is-large">
       <div class="navbar-brand">
         <router-link to="/" class="navbar-item"><strong>KubSU</strong></router-link>
         <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu" >
@@ -42,7 +42,7 @@
 
             <router-link to="/ff" class="navbar-item">Филологический факультет</router-link>
 
-            <router-link to="/hgh" class="navbar-item">Художественно-графический факультет</router-link>
+            <router-link to="/hgf" class="navbar-item">Художественно-графический факультет</router-link>
 
             <router-link to="/ef" class="navbar-item">Экономический факультет</router-link>
 
