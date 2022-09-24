@@ -13,3 +13,9 @@ class SpecialitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Speciality
         fields = '__all__'
+
+
+class YearOfAdmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = YearOfAdmission
+        fields = '__all__'

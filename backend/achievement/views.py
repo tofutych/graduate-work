@@ -6,8 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from .models import Faculty, Speciality
-from .serializers import FacultySerializer, SpecialitySerializer
+from .models import Faculty, Speciality, YearOfAdmission
+from .serializers import FacultySerializer, SpecialitySerializer, YearOfAdmissionSerializer
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -75,12 +75,51 @@ def speciality_detail(request, faculty_slug, speciality_slug, format=None):
 def speciality_list(request, faculty_slug, format=None):
     if request.method == 'GET':
         specialities = Speciality.objects.filter(faculty__slug=faculty_slug)
-
         serializer = SpecialitySerializer(specialities, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
         serializer = SpecialitySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def year_of_admission_detail(request, faculty_slug, speciality_slug, year_of_admission_slug, format=None):
+    try:
+        year_of_admission = YearOfAdmission.objects.filter(faculty__slug=faculty_slug).filter(
+            speciality__slug=speciality_slug).get(slug=year_of_admission_slug)
+    except Faculty.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = YearOfAdmissionSerializer(year_of_admission)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = YearOfAdmissionSerializer(year_of_admission, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        year_of_admission.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'POST'])
+def year_of_admission_list(request, faculty_slug, speciality_slug, format=None):
+    if request.method == 'GET':
+        years_of_admission = YearOfAdmission.objects.filter(faculty__slug=faculty_slug).filter(
+            speciality__slug=speciality_slug)
+        serializer = YearOfAdmissionSerializer(years_of_admission, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = YearOfAdmissionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
