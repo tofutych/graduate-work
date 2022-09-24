@@ -79,7 +79,7 @@ class YearOfAdmission(models.Model):
         return str(self.year)
 
     def get_absolute_url(self):
-        return f"{self.speciality.get_absolute_url()}/{self.slug}/"
+        return f"{self.speciality.get_absolute_url()}{self.slug}/"
 
 
 class Student(models.Model):
@@ -117,7 +117,7 @@ class Student(models.Model):
         return f"{self.id} {self.name}"
 
     def get_absolute_url(self):
-        return f"{self.year_of_admission.get_absolute_url()}/{self.id}/"
+        return f"{self.year_of_admission.get_absolute_url()}{self.id}/"
 
 
 class Achievement(models.Model):
@@ -134,7 +134,7 @@ class Achievement(models.Model):
         date_added: Дата добавления записи
 
     """
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='achievements')
 
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
